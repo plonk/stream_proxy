@@ -63,9 +63,7 @@ class ProxyServer
 
   def http_request(s)
     if (line = s.gets) =~ /\A([A-Z]+) (\S+) (\S+)\r\n\z/
-      meth = Regexp.last_match[1]
-      path = Regexp.last_match[2]
-      version = Regexp.last_match[3]
+      meth, path, version = Regexp.last_match.to_a.slice(1..3)
     else
       fail "invalid request line: #{line.inspect}"
     end
