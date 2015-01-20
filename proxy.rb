@@ -5,8 +5,6 @@ require 'monitor'
 require_relative 'util'
 require_relative 'peercast'
 
-Thread.abort_on_exception = true
-
 class ProxyServer
   include Util
 
