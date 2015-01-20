@@ -112,7 +112,7 @@ class ProxyServer
 
     # 新しいリレーを開始できないように、既存のチャンネルだけを視聴させる
     def request_valid?(request)
-      ids = pecast.getChannels.map { |h| h['channelId'] }
+      ids = @pecast.getChannels.map { |h| h['channelId'] }
       if request.path =~ /^\/(stream|pls)\/([A-Z0-9]+)/
         return ids.include?($2)
       else
