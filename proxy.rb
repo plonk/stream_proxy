@@ -120,7 +120,7 @@ class ProxyServer
       end
     end
 
-    def handle_proxy_request(request, s)
+    def handle_proxy_request(request)
       if request_valid?(request)
         peer = @pecast.open
         peer.write "GET #{request.path} HTTP/1.0\r\n"
