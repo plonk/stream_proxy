@@ -1,7 +1,10 @@
+require 'socket'
 require 'jimson'
 
 class Peercast
   def initialize(host, port)
+    @host = host
+    @port = port
     @helper = Jimson::ClientHelper.new("http://#{host}:#{port}/api/1")
   end
 
@@ -11,6 +14,15 @@ class Peercast
       @helper.process_call(name, *args, &block)
     else
       @helper.process_call(name, args, &block)
+    end
+  end
+
+  def open(&block)
+    socket = TCPSocket.new(@host, @port)
+    if block
+      yield socket
+    else
+      socket
     end
   end
 end
