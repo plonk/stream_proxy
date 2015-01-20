@@ -72,7 +72,8 @@ class ProxyServer
     headers = {}
     while (line = s.gets) != "\r\n"
       if line =~ /\A([^:]+):\s*(.+)\r\n\z/
-        headers[Regexp.last_match[1]] = Regexp.last_match[2]
+        key, value = Regexp.last_match.to_a.slice(1..2)
+        headers[key] = value
       else
         fail "invalid header line: #{line.inspect}"
       end
