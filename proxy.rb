@@ -130,11 +130,8 @@ class ProxyServer
         peer.write "\r\n"
         loop do
           timeout 5 do
-            @log.debug('reading')
             data = peer.read(BUF_SIZE)
-            @log.debug("read #{data.bytesize} bytes; writing...")
             @client.write(data)
-            @log.debug("written")
           end
         end
       else
