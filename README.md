@@ -1,0 +1,2 @@
+# stream_proxy
+PeercastStationの既存のストリームだけを視聴させるためのリバースプロキシ
