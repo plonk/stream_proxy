@@ -71,8 +71,11 @@ class ProxyServer
     # read headers
     headers = {}
     while (line = s.gets) != "\r\n"
-      line =~ /\A([^:]+):\s*(.+)\r\n\z/
-      headers[Regexp.last_match[1]] = Regexp.last_match[2]
+      if line =~ /\A([^:]+):\s*(.+)\r\n\z/
+        headers[Regexp.last_match[1]] = Regexp.last_match[2]
+      else
+        fail "invalid header line: #{line.inspect}"
+      end
     end
     OpenStruct.new(meth: meth, path: path, version: version,
                    headers: headers)
