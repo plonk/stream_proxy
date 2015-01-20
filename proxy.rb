@@ -3,7 +3,6 @@ require 'timeout'
 require 'ostruct'
 require 'monitor'
 require_relative 'util'
-require_relative 'session'
 
 class ProxyServer
   include Util
