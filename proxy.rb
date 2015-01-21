@@ -15,8 +15,6 @@ class ProxyServer
     @socket = TCPServer.open(host, port)
     @log = log
     @options = options
-    @threads = []
-    @monitor = Monitor.new # @threadsのロック
     @pecast_ip = options[:pecast_ip] || 'localhost'
     @pecast_port = options[:pecast_port] || 7144
     log.info format('server is on %s', addr_format(@socket.addr))
@@ -33,22 +31,10 @@ class ProxyServer
           session = Session.new(client, pecast)
           session.call
 
-          # スレッドリストからカレントスレッドを削除する
-          catch(:quit) do
-            @monitor.synchronize do
-              if @threads.include?(t)
-                @threads.delete(t)
-                throw :quit
-              end
-            end while true
-          end
-
         rescue => e
           @log.info "exception occured: #{e.inspect}"
         end
-
       end
-      @monitor.synchronize { @threads << t }
     end
   rescue Interrupt
     @log.info 'interrupt from terminal'
