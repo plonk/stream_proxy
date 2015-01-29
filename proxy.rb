@@ -52,7 +52,7 @@ class ProxyServer
   class Session
     include Timeout
 
-    BUF_SIZE = 1024
+    BUF_SIZE = 64 * 1024
 
     def initialize(client, pecast)
       @client = client
